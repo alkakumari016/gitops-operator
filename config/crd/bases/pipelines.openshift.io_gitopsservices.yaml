@@ -39,6 +39,14 @@ spec:
           spec:
             description: GitopsServiceSpec defines the desired state of GitopsService
             properties:
+              imagePullPolicy:
+                description: ImagePullPolicy defines the image pull policy for GitOps
+                  workloads
+                enum:
+                - Always
+                - IfNotPresent
+                - Never
+                type: string
               nodeSelector:
                 additionalProperties:
                   type: string

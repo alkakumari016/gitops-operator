@@ -233,6 +233,8 @@ spec:
           value: \"${SERVER_CLUSTER_ROLE}\"
         - name: WATCH_NAMESPACE
           value: \"${WATCH_NAMESPACE}\"
+        - name: IMAGE_PULL_POLICY
+          value: \"${IMAGE_PULL_POLICY}\"
         - name: ARGOCD_LABEL_SELECTOR
           value: \"${ARGOCD_LABEL_SELECTOR}\"
         - name: ENABLE_CONVERSION_WEBHOOK

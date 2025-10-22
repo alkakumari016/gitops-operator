@@ -1,0 +1,21 @@
+apiVersion: pipelines.openshift.io/v1alpha1
+kind: GitopsService
+metadata:
+  name: cluster
+spec:
+  # Configure imagePullPolicy for GitOps workloads
+  # Options: Always, IfNotPresent, Never
+  imagePullPolicy: IfNotPresent
+  
+  # Optional: Run on infrastructure nodes
+  runOnInfra: false
+  
+  # Optional: Node selector for workload placement
+  nodeSelector:
+    kubernetes.io/os: linux
+  
+  # Optional: Tolerations for workload scheduling
+  tolerations:
+  - key: "node-role.kubernetes.io/infra"
+    operator: "Exists"
+    effect: "NoSchedule"

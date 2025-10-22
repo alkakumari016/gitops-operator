@@ -32,6 +32,9 @@ type GitopsServiceSpec struct {
 	Tolerations []corev1.Toleration `json:"tolerations,omitempty"`
 	// NodeSelector is a map of key value pairs used for node selection in the default workloads
 	NodeSelector map[string]string `json:"nodeSelector,omitempty"`
+	// ImagePullPolicy defines the image pull policy for GitOps workloads
+	// +kubebuilder:validation:Enum=Always;IfNotPresent;Never
+	ImagePullPolicy corev1.PullPolicy `json:"imagePullPolicy,omitempty"`
 }
 
 // GitopsServiceStatus defines the observed state of GitopsService

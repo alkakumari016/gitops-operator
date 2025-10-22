@@ -177,6 +177,7 @@ require (
 )
 
 replace (
+	github.com/argoproj-labs/argocd-operator => ../argocd-operator
 	github.com/golang/protobuf => github.com/golang/protobuf v1.5.4
 	github.com/grpc-ecosystem/grpc-gateway => github.com/grpc-ecosystem/grpc-gateway v1.16.0
 

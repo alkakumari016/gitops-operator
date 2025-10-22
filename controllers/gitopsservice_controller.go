@@ -607,7 +607,9 @@ func (r *ReconcileGitopsService) reconcileBackend(gitopsserviceNamespacedName ty
 
 	// Define a new backend Deployment
 	{
-		deploymentObj := newBackendDeployment(gitopsserviceNamespacedName)
+		// Get the image pull policy based on precedence
+		imagePullPolicy := common.GetImagePullPolicy(instance.Spec.ImagePullPolicy)
+		deploymentObj := newBackendDeployment(gitopsserviceNamespacedName, imagePullPolicy)
 
 		// Add SeccompProfile based on cluster version
 		util.AddSeccompProfileForOpenShift(r.Client, &deploymentObj.Spec.Template.Spec)
@@ -737,7 +739,7 @@ func objectMeta(resourceName string, namespace string, opts ...func(*metav1.Obje
 	return objectMeta
 }
 
-func newBackendDeployment(ns types.NamespacedName) *appsv1.Deployment {
+func newBackendDeployment(ns types.NamespacedName, imagePullPolicy corev1.PullPolicy) *appsv1.Deployment {
 	image := os.Getenv(backendImageEnvName)
 	if image == "" {
 		image = backendImage
@@ -745,8 +747,9 @@ func newBackendDeployment(ns types.NamespacedName) *appsv1.Deployment {
 	podSpec := corev1.PodSpec{
 		Containers: []corev1.Container{
 			{
-				Name:  ns.Name,
-				Image: image,
+				Name:            ns.Name,
+				Image:           image,
+				ImagePullPolicy: imagePullPolicy,
 				Ports: []corev1.ContainerPort{
 					{
 						Name:          "http",

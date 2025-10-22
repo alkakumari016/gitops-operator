@@ -38,6 +38,8 @@ spec:
           value: gitops-operator
         - name : LABEL_SELECTOR
           value: ""
+        - name: IMAGE_PULL_POLICY
+          value: ""
         image: controller:latest
         livenessProbe:
           httpGet:
